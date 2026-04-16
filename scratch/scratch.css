@@ -1,0 +1,70 @@
+body {
+    text-align: center;
+    font-family: "Bangla MN", serif;
+    background-color: #f6eec8;
+    color: #4B2E2A;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+.home-button {
+    display: inline-block;
+    margin: 0.5rem 0 1rem;
+    padding: 0.7rem 1.4rem;
+    background-color: #ffcbd3;
+    color: #4B2E2A;
+    text-decoration: none;
+    border: 2px solid #4B2E2A;
+    border-radius: 999px;
+}
+h1 {
+    text-align: center;
+    font-family: "SignPainter", "SignPainter HouseScript", cursive;
+    font-size: 2.75rem;
+}
+h2 {
+    text-align: left;
+    font-size: 1.1rem;
+    max-width: 900px;
+    margin: 0 auto 1rem;
+}
+
+ul,
+li {
+    text-align: left;
+}
+
+/* List and image row */
+.list-image-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    gap: 2rem;
+    
+}
+
+.list-column {
+    flex: 1;
+}
+
+.image-column {
+    flex: 0 0 auto;
+    margin-top: -20px;
+}
+
+img {
+    width: 300px;
+    height: auto;
+    display: block;
+    border: 3px solid #4B2E2A;
+}
+
+.tableauPlaceholder {
+    margin: 2rem auto 0;
+    display: flex;
+    justify-content: center;
+}

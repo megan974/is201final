@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Theme Discovery</title>
+    <style>
+        /* CSS: Styling the App */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffcbd3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #quiz-container {
+            background: #faf3db;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .question {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #4a4a4a;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        button {
+            padding: 12px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #e8d5cc;
+            border-color: #d1b8ab;
+        }
+
+        .home-button {
+            display: inline-block;
+            margin-top: 2.5rem;
+            padding: 12px 18px;
+            border: 1px solid #8d6e63;
+            background-color: #fff;
+            color: #8d6e63;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .home-button:hover {
+            background-color: #e8d5cc;
+            border-color: #d1b8ab;
+        }
+
+        #result {
+            display: none;
+        }
+
+        h2 { color: #8d6e63; }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div id="quiz-ui">
+        <h2 id="question-text">Loading question...</h2>
+        <div id="options" class="options-grid">
+            </div>
+    </div>
+
+    <div id="result">
+        <h2>Your Perfect Theme:</h2>
+        <h1 id="theme-name">...</h1>
+        <p id="theme-desc"></p>
+        <button onclick="location.reload()">Start Over</button>
+    </div>
+</div>
+
+<a class="home-button" href="index.html">Back to Home</a>
+
+<script>
+    // JavaScript: Logic & Data
+    const questions = [
+        {
+            text: "Where is your dream ceremony location?",
+            options: [
+                { text: "A botanical garden or forest", type: "Boho-Chic" },
+                { text: "A historic ballroom or estate", type: "Classic Elegant" },
+                { text: "A restored barn or vineyard", type: "Rustic" },
+                { text: "An art gallery or city rooftop", type: "Modern Minimalist" }
+            ]
+        },
+        {
+            text: "Pick a color palette:",
+            options: [
+                { text: "Earth tones and terracotta", type: "Boho-Chic" },
+                { text: "White, gold, and navy", type: "Classic Elegant" },
+                { text: "Sage green and wood accents", type: "Rustic" },
+                { text: "Monochrome or bold neons", type: "Modern Minimalist" }
+            ]
+        },
+        {
+            text: "What does your ideal cake look like?",
+            options: [
+                { text: "Covered in wildflowers", type: "Boho-Chic" },
+                { text: "Traditional white with piping", type: "Classic Elegant" },
+                { text: "A 'naked' cake with berries", type: "Rustic" },
+                { text: "Geometric shapes/smooth marble", type: "Modern Minimalist" }
+            ]
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let scores = {};
+
+    function showQuestion() {
+        const question = questions[currentQuestionIndex];
+        document.getElementById('question-text').innerText = question.text;
+        const optionsContainer = document.getElementById('options');
+        optionsContainer.innerHTML = '';
+
+        question.options.forEach(option => {
+            const btn = document.createElement('button');
+            btn.innerText = option.text;
+            btn.onclick = () => selectOption(option.type);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(type) {
+        scores[type] = (scores[type] || 0) + 1;
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questions.length) {
+            showQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById('quiz-ui').style.display = 'none';
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+
+        // Find the type with the highest score
+        const winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        
+        document.getElementById('theme-name').innerText = winner;
+        
+        const descriptions = {
+            "Boho-Chic": "Free-spirited, creative, and relaxed. Think pampas grass and macramé.",
+            "Classic Elegant": "Timeless, sophisticated, and polished. A fairy-tale aesthetic.",
+            "Rustic": "Warm, cozy, and natural. Focuses on organic textures and intimacy.",
+            "Modern Minimalist": "Sleek, clean lines, and sophisticated simplicity."
+        };
+        
+        document.getElementById('theme-desc').innerText = descriptions[winner];
+    }
+
+    // Start the quiz
+    showQuestion();
+</script>
+
+</body>
+</html>
